@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superconductivity Papers</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <form class="search-form" method="post">
+        <input type="text" name="query" placeholder="Search by title or abstract..." value="{{ query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <h1>Latest Papers in Superconductivity</h1>
+
+    {% for paper in papers %}
+        <div class="paper">
+            <h2><a href="{{ paper.pdf_url }}" target="_blank">{{ paper.title }}</a></h2>
+            <p class="meta"><strong>Author:</strong> {{ paper.author }}</p>
+            <p class="meta"><strong>Published:</strong> {{ paper.published_date }}</p>
+            <p>{{ paper.summary }}</p>
+        </div>
+    {% else %}
+        <p>No papers found matching your search.</p>
+    {% endfor %}
+
+    {% if total_pages > 1 %}
+    <div class="pagination">
+        {% if page > 1 %}
+            <a href="{{ url_for('index', page=page-1, query=query) }}">« Previous</a>
+        {% else %}
+            <span class="disabled">« Previous</span>
+        {% endif %}
+
+        <span class="current">{{ page }}</span>
+
+        {% if page < total_pages %}
+            <a href="{{ url_for('index', page=page+1, query=query) }}">Next »</a>
+        {% else %}
+            <span class="disabled">Next »</span>
+        {% endif %}
+    </div>
+    <p style="text-align: center; color: #6c757d;">Page {{ page }} of {{ total_pages }}</p>
+    {% endif %}
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superconductivity Papers</title>
+    
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; margin: 2em; background-color: #f8f9fa; color: #212529; }
+        h1 { color: #0056b3; }
+        .paper { border: 1px solid #dee2e6; border-radius: 8px; margin-bottom: 1.5em; padding: 1.5em; background-color: #ffffff; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .paper h2 { margin-top: 0; font-size: 1.25em; }
+        .paper p { margin-bottom: 0.5em; }
+        .meta { font-size: 0.9em; color: #6c757d; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+
+</head>
+<body>
+
+    <h1>Latest Papers in Superconductivity</h1>
+
+    {% for paper in papers %}
+        <div class="paper">
+            <h2><a href="{{ paper.pdf_url }}" target="_blank">{{ paper.title }}</a></h2>
+            <p class="meta"><strong>Author:</strong> {{ paper.author }}</p>
+            <p class="meta"><strong>Published:</strong> {{ paper.published_date }}</p>
+            <p>{{ paper.summary }}</p>
+        </div>
+    {% else %}
+        <p>No papers found in the database.</p>
+    {% endfor %}
+
+</body>
+</html>
